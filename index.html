@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OneState Mod Menu</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:#050914;
+  color:white;
+  font-family:Arial,sans-serif;
+  padding:20px;
+}
+.panel{
+  max-width:420px;
+  margin:35px auto;
+  padding:22px;
+  background:#101a2c;
+  border:1px solid #087cff;
+  border-radius:18px;
+  box-shadow:0 0 25px #006aff30;
+}
+h1{text-align:center;color:#168bff}
+.subtitle{text-align:center;color:#899bb5}
+.section{
+  margin-top:22px;
+  padding:14px;
+  background:#17243a;
+  border-radius:12px;
+}
+.option{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:13px 0;
+  border-bottom:1px solid #293951;
+}
+.option:last-child{border:0}
+input{accent-color:#168bff;width:20px;height:20px}
+button{
+  width:100%;
+  padding:14px;
+  margin-top:20px;
+  background:#087cff;
+  color:white;
+  border:0;
+  border-radius:10px;
+  font-weight:bold;
+}
+#status{text-align:center;color:#39a5ff;margin-top:15px}
+</style>
+</head>
+<body>
+<div class="panel">
+<h1>ONESTATE</h1>
+<p class="subtitle">MOD MENU • ANDROID</p>
+
+<div class="section">
+<h3>Otimização</h3>
+<div class="option">Modo desempenho
+<input type="checkbox" id="performance"></div>
+<div class="option">Reduzir animações da interface
+<input type="checkbox" id="animations"></div>
+<div class="option">Interface azul
+<input type="checkbox" id="blue" checked></div>
+</div>
+
+<div class="section">
+<h3>Configurações</h3>
+<div class="option">Mostrar FPS (visual)
+<input type="checkbox" id="fps"></div>
+<div class="option">Mira de treino (visual)
+<input type="checkbox" id="aim"></div>
+</div>
+
+<button onclick="applySettings()">APLICAR CONFIGURAÇÕES</button>
+<p id="status">Sistema pronto</p>
+</div>
+
+<script>
+function applySettings(){
+ const settings={
+  performance:document.getElementById('performance').checked,
+  animations:document.getElementById('animations').checked,
+  blue:document.getElementById('blue').checked,
+  fps:document.getElementById('fps').checked,
+  aim:document.getElementById('aim').checked
+ };
+ localStorage.setItem('onestateSettings',JSON.stringify(settings));
+ document.getElementById('status').textContent=
+ 'Configurações salvas com sucesso!';
+}
+</script>
+</body>
+</html>
