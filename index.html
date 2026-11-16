@@ -3,96 +3,539 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OneState Mod Menu</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#030817">
+<title>DK MODDER Premium</title>
+
 <style>
 *{box-sizing:border-box}
 body{
-  margin:0;
-  background:#050914;
-  color:white;
-  font-family:Arial,sans-serif;
-  padding:20px;
+ margin:0;
+ background:#030713;
+ color:#eaf4ff;
+ font-family:Arial,sans-serif;
 }
-.panel{
-  max-width:420px;
-  margin:35px auto;
-  padding:22px;
-  background:#101a2c;
-  border:1px solid #087cff;
-  border-radius:18px;
-  box-shadow:0 0 25px #006aff30;
+:root{--blue:#087cff;--cyan:#00c8ff;--panel:#09152b}
+header{
+ padding:18px;
+ background:#050b19;
+ border-bottom:1px solid #087cff;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:12px;
 }
-h1{text-align:center;color:#168bff}
-.subtitle{text-align:center;color:#899bb5}
-.section{
-  margin-top:22px;
-  padding:14px;
-  background:#17243a;
-  border-radius:12px;
+.logo{
+ font-size:24px;
+ font-weight:900;
+ color:#168bff;
+ letter-spacing:2px;
+}
+.logo span{color:white}
+.status{
+ color:#36ff91;
+ font-size:12px;
+ border:1px solid #168bff;
+ padding:8px 12px;
+ border-radius:20px;
+}
+.layout{
+ display:grid;
+ grid-template-columns:190px 1fr;
+ gap:16px;
+ padding:16px;
+ max-width:1200px;
+ margin:auto;
+}
+nav{
+ background:var(--panel);
+ border:1px solid #123c71;
+ border-radius:14px;
+ padding:10px;
+ height:max-content;
+ position:sticky;
+ top:10px;
+}
+nav button{
+ display:block;
+ width:100%;
+ text-align:left;
+ margin:5px 0;
+ padding:14px 10px;
+ color:#c5dfff;
+ background:transparent;
+ border:1px solid transparent;
+ border-radius:9px;
+ font-weight:bold;
+}
+nav button.active,nav button:hover{
+ background:#06377b;
+ border-color:#168bff;
+ color:white;
+}
+main{min-width:0}
+.hero{
+ padding:24px;
+ border:1px solid #087cff;
+ border-radius:15px;
+ background:linear-gradient(120deg,#07152f,#063d88,#07152f);
+ margin-bottom:16px;
+}
+.hero h1{
+ margin:0;
+ font-size:30px;
+ color:#38aaff;
+}
+.hero p{color:#d5e9ff;margin-bottom:0}
+.tag{
+ display:inline-block;
+ margin-top:12px;
+ color:#52d7ff;
+ font-size:11px;
+ border:1px solid #168bff;
+ padding:5px 9px;
+ border-radius:20px;
+}
+.stats{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:10px;
+ margin-bottom:16px;
+}
+.stat{
+ background:var(--panel);
+ border:1px solid #153b6d;
+ border-radius:12px;
+ padding:14px;
+}
+.stat strong{
+ display:block;
+ color:#22a0ff;
+ font-size:22px;
+ margin-bottom:5px;
+}
+.stat small{color:#8faecc}
+.section-title{
+ color:#36baff;
+ font-size:18px;
+ margin:22px 0 12px;
+}
+.cards{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:12px;
+}
+.card{
+ background:linear-gradient(145deg,#0c1b35,#071020);
+ border:1px solid #164b87;
+ border-radius:13px;
+ padding:15px;
+}
+.card h3{
+ margin:0 0 13px;
+ color:#40baff;
+ font-size:16px;
 }
 .option{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:13px 0;
-  border-bottom:1px solid #293951;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px;
+ padding:12px 0;
+ border-bottom:1px solid #19304c;
 }
 .option:last-child{border:0}
-input{accent-color:#168bff;width:20px;height:20px}
-button{
-  width:100%;
-  padding:14px;
-  margin-top:20px;
-  background:#087cff;
-  color:white;
-  border:0;
-  border-radius:10px;
-  font-weight:bold;
+.option b{font-size:13px}
+.option small{
+ display:block;
+ color:#7895b7;
+ margin-top:4px;
+ font-size:11px;
 }
-#status{text-align:center;color:#39a5ff;margin-top:15px}
+.switch{
+ position:relative;
+ width:43px;
+ height:24px;
+ flex-shrink:0;
+}
+.switch input{display:none}
+.track{
+ position:absolute;
+ inset:0;
+ background:#27364c;
+ border-radius:30px;
+ cursor:pointer;
+ transition:.2s;
+}
+.track:before{
+ content:"";
+ position:absolute;
+ height:18px;
+ width:18px;
+ left:3px;
+ top:3px;
+ background:white;
+ border-radius:50%;
+ transition:.2s;
+}
+.switch input:checked+.track{background:#087cff}
+.switch input:checked+.track:before{transform:translateX(19px)}
+select{
+ background:#061b39;
+ color:white;
+ border:1px solid #168bff;
+ border-radius:7px;
+ padding:8px;
+}
+input[type=range]{width:100%;accent-color:#168bff}
+.actions{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:10px;
+ margin-top:16px;
+}
+.action{
+ background:#06377b;
+ border:1px solid #168bff;
+ border-radius:10px;
+ padding:14px;
+ color:white;
+ font-weight:bold;
+}
+.action:active{background:#087cff}
+.notice{
+ margin-top:16px;
+ padding:13px;
+ border:1px solid #244d79;
+ border-radius:10px;
+ color:#8eabc9;
+ font-size:12px;
+ line-height:1.5;
+}
+footer{
+ text-align:center;
+ color:#557596;
+ font-size:11px;
+ padding:24px;
+}
+#toast{
+ position:fixed;
+ bottom:20px;
+ left:50%;
+ transform:translateX(-50%);
+ background:#087cff;
+ color:white;
+ padding:12px 18px;
+ border-radius:10px;
+ display:none;
+ z-index:5;
+}
+@media(max-width:650px){
+ .layout{grid-template-columns:1fr;padding:10px}
+ nav{
+  position:static;
+  display:flex;
+  overflow-x:auto;
+  gap:5px;
+ }
+ nav button{
+  min-width:max-content;
+  text-align:center;
+  padding:12px;
+ }
+ .cards{grid-template-columns:1fr}
+ .stats{grid-template-columns:repeat(3,1fr)}
+ .stat{padding:10px 6px}
+ .stat strong{font-size:18px}
+ .hero h1{font-size:25px}
+ header{padding:14px}
+}
 </style>
 </head>
+
 <body>
-<div class="panel">
-<h1>ONESTATE</h1>
-<p class="subtitle">MOD MENU • ANDROID</p>
 
-<div class="section">
-<h3>Otimização</h3>
-<div class="option">Modo desempenho
-<input type="checkbox" id="performance"></div>
-<div class="option">Reduzir animações da interface
-<input type="checkbox" id="animations"></div>
-<div class="option">Interface azul
-<input type="checkbox" id="blue" checked></div>
+<header>
+ <div class="logo">⚡ DK <span>MODDER</span></div>
+ <div class="status">● DEMO ONLINE</div>
+</header>
+
+<div class="layout">
+
+<nav>
+ <button class="active" onclick="go('inicio',this)">⌂ Principal</button>
+ <button onclick="go('combate',this)">⚔ Combate</button>
+ <button onclick="go('player',this)">♟ Player</button>
+ <button onclick="go('visual',this)">◉ Visual</button>
+ <button onclick="go('mundo',this)">🌐 Mundo</button>
+ <button onclick="go('config',this)">⚙ Configurações</button>
+</nav>
+
+<main>
+
+<div class="hero" id="inicio">
+ <h1>DK MODDER</h1>
+ <p>PAINEL PREMIUM • ONESTATE ROLEPLAY</p>
+ <span class="tag">VERSÃO 1.0 • INTERFACE DEMONSTRATIVA</span>
 </div>
 
-<div class="section">
-<h3>Configurações</h3>
-<div class="option">Mostrar FPS (visual)
-<input type="checkbox" id="fps"></div>
-<div class="option">Mira de treino (visual)
-<input type="checkbox" id="aim"></div>
+<div class="stats">
+ <div class="stat"><strong>60</strong><small>FPS ilustrativo</small></div>
+ <div class="stat"><strong>32ms</strong><small>Ping ilustrativo</small></div>
+ <div class="stat"><strong>ONLINE</strong><small>Painel</small></div>
 </div>
 
-<button onclick="applySettings()">APLICAR CONFIGURAÇÕES</button>
-<p id="status">Sistema pronto</p>
+<h2 class="section-title" id="combate">⚔ COMBATE</h2>
+<div class="cards">
+ <div class="card">
+  <h3>Recursos de combate</h3>
+
+  <div class="option">
+   <div><b>Aimbot</b><small>Simulação de mira automática</small></div>
+   <label class="switch"><input type="checkbox" data-key="aim"><span class="track"></span></label>
+  </div>
+
+  <div class="option">
+   <div><b>Mira perfeita</b><small>Indicador visual de precisão</small></div>
+   <label class="switch"><input type="checkbox" data-key="mira"><span class="track"></span></label>
+  </div>
+
+  <div class="option">
+   <div><b>Dano alto</b><small>Indicador demonstrativo</small></div>
+   <label class="switch"><input type="checkbox" data-key="dano"><span class="track"></span></label>
+  </div>
+
+  <div class="option">
+   <div><b>Anti-recuo</b><small>Controle visual de estabilidade</small></div>
+   <label class="switch"><input type="checkbox" data-key="recuo"><span class="track"></span></label>
+  </div>
+ </div>
+
+ <div class="card">
+  <h3>Precisão</h3>
+  <b>Intensidade visual</b>
+  <input type="range" min="0" max="100" value="75" data-key="precisao">
+  <div class="option">
+   <div><b>Indicador de alvo</b><small>Elemento visual de treino</small></div>
+   <label class="switch"><input type="checkbox" data-key="alvo"><span class="track"></span></label>
+  </div>
+ </div>
 </div>
+
+<h2 class="section-title" id="player">♟ PLAYER</h2>
+<div class="cards">
+ <div class="card">
+  <h3>Personagem</h3>
+
+  <div class="option">
+   <div><b>Farm automático</b><small>Simulação de coleta automática</small></div>
+   <label class="switch"><input type="checkbox" data-key="farm"><span class="track"></span></label>
+  </div>
+
+  <div class="option">
+   <div><b>Vida infinita</b><small>Indicador de vida demonstrativo</small></div>
+   <label class="switch"><input type="checkbox" data-key="vida"><span class="track"></span></label>
+  </div>
+
+  <div class="option">
+   <div><b>Bug de vida automático</b><small>Simulação visual de recuperação</small></div>
+   <label class="switch"><input type="checkbox" data-key="bugvida"><span class="track"></span></label>
+  </div>
+
+  <div class="option">
+   <div><b>Corrida rápida</b><small>Controle ilustrativo de velocidade</small></div>
+   <label class="switch"><input type="checkbox" data-key="corrida"><span class="track"></span></label>
+  </div>
+
+  <div class="option">
+   <div><b>Salto alto</b><small>Indicador demonstrativo</small></div>
+   <label class="switch"><input type="checkbox" data-key="salto"><span class="track"></span></label>
+  </div>
+ </div>
+
+ <div class="card">
+  <h3>Progresso demonstrativo</h3>
+  <b>Vida ilustrativa</b>
+  <input type="range" min="0" max="100" value="100" data-key="health">
+  <b>Energia ilustrativa</b>
+  <input type="range" min="0" max="100" value="80" data-key="energy">
+  <div class="option">
+   <div><b>Teleporte</b><small>Botão demonstrativo</small></div>
+   <button class="action" onclick="notify('Teleporte: demonstração visual')">Abrir</button>
+  </div>
+ </div>
+</div>
+
+<h2 class="section-title" id="visual">◉ VISUAL E HUD</h2>
+<div class="cards">
+ <div class="card">
+  <h3>Interface visual</h3>
+
+  <div class="option">
+   <div><b>ESP ilustrativo</b><small>Exemplo de HUD</small></div>
+   <label class="switch"><input type="checkbox" data-key="esp"><span class="track"></span></label>
+  </div>
+
+  <div class="option">
+   <div><b>Linhas de mira</b><small>Elemento de interface</small></div>
+   <label class="switch"><input type="checkbox" data-key="linhas"><span class="track"></span></label>
+  </div>
+
+  <div class="option">
+   <div><b>Mostrar FPS</b><small>Contador ilustrativo</small></div>
+   <label class="switch"><input type="checkbox" data-key="showfps"><span class="track"></span></label>
+  </div>
+
+  <div class="option">
+   <div><b>HUD personalizado</b><small>Personalização do painel</small></div>
+   <label class="switch"><input type="checkbox" data-key="hud"><span class="track"></span></label>
+  </div>
+ </div>
+
+ <div class="card">
+  <h3>Aparência</h3>
+  <div class="option">
+   <b>Tema do painel</b>
+   <select id="theme">
+    <option value="blue">Azul elétrico</option>
+    <option value="cyan">Ciano</option>
+    <option value="purple">Roxo</option>
+   </select>
+  </div>
+  <div class="option">
+   <b>Tamanho da interface</b>
+   <select id="size">
+    <option>Pequeno</option>
+    <option selected>Normal</option>
+    <option>Grande</option>
+   </select>
+  </div>
+ </div>
+</div>
+
+<h2 class="section-title" id="mundo">🌐 MUNDO</h2>
+<div class="cards">
+ <div class="card">
+  <h3>Ambiente</h3>
+  <div class="option">
+   <div><b>Mapa demonstrativo</b><small>Visualização ilustrativa</small></div>
+   <label class="switch"><input type="checkbox" data-key="mapa"><span class="track"></span></label>
+  </div>
+  <div class="option">
+   <b>Clima</b>
+   <select data-key="clima">
+    <option>Dia</option>
+    <option>Noite</option>
+    <option>Chuva</option>
+   </select>
+  </div>
+ </div>
+
+ <div class="card">
+  <h3>Veículos</h3>
+  <div class="option">
+   <div><b>Menu de veículos</b><small>Catálogo demonstrativo</small></div>
+   <button class="action" onclick="notify('Catálogo demonstrativo')">Abrir</button>
+  </div>
+ </div>
+</div>
+
+<h2 class="section-title" id="config">⚙ CONFIGURAÇÕES</h2>
+<div class="card">
+ <h3>Desempenho e preferências</h3>
+
+ <div class="option">
+  <div><b>FPS Boost</b><small>Atalho ilustrativo de otimização</small></div>
+  <label class="switch"><input type="checkbox" data-key="boost"><span class="track"></span></label>
+ </div>
+
+ <div class="option">
+  <div><b>Reduzir efeitos visuais</b><small>Preferência desta interface</small></div>
+  <label class="switch"><input type="checkbox" data-key="effects"><span class="track"></span></label>
+ </div>
+
+ <div class="actions">
+  <button class="action" onclick="save()">💾 Salvar opções</button>
+  <button class="action" onclick="resetAll()">↻ Restaurar padrões</button>
+ </div>
+</div>
+
+<div class="notice">
+ ⚠ DK MODDER é uma interface demonstrativa independente.
+ Os controles, Aimbot, farm, vida e demais recursos não
+ alteram o OneState, não interagem com o servidor e não
+ representam funções reais do jogo.
+</div>
+
+<footer>
+ DK MODDER PREMIUM • V1.0<br>
+ Interface demonstrativa para Android
+</footer>
+
+</main>
+</div>
+
+<div id="toast"></div>
 
 <script>
-function applySettings(){
- const settings={
-  performance:document.getElementById('performance').checked,
-  animations:document.getElementById('animations').checked,
-  blue:document.getElementById('blue').checked,
-  fps:document.getElementById('fps').checked,
-  aim:document.getElementById('aim').checked
- };
- localStorage.setItem('onestateSettings',JSON.stringify(settings));
- document.getElementById('status').textContent=
- 'Configurações salvas com sucesso!';
+function notify(message){
+ const t=document.getElementById('toast');
+ t.textContent=message;
+ t.style.display='block';
+ setTimeout(()=>t.style.display='none',2200);
 }
+
+function go(id,button){
+ document.getElementById(id).scrollIntoView({behavior:'smooth'});
+ document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+ button.classList.add('active');
+}
+
+function save(){
+ const settings={};
+ document.querySelectorAll('[data-key]').forEach(el=>{
+  settings[el.dataset.key]=el.type==='checkbox'?el.checked:el.value;
+ });
+ settings.theme=document.getElementById('theme').value;
+ settings.size=document.getElementById('size').value;
+ localStorage.setItem('dkmodder',JSON.stringify(settings));
+ notify('Configurações salvas!');
+}
+
+function load(){
+ const settings=JSON.parse(localStorage.getItem('dkmodder')||'{}');
+ document.querySelectorAll('[data-key]').forEach(el=>{
+  if(settings[el.dataset.key]===undefined)return;
+  if(el.type==='checkbox')el.checked=settings[el.dataset.key];
+  else el.value=settings[el.dataset.key];
+ });
+ if(settings.theme)document.getElementById('theme').value=settings.theme;
+ if(settings.size)document.getElementById('size').value=settings.size;
+}
+
+function resetAll(){
+ localStorage.removeItem('dkmodder');
+ document.querySelectorAll('[data-key]').forEach(el=>{
+  if(el.type==='checkbox')el.checked=false;
+ });
+ document.querySelector('[data-key="health"]').value=100;
+ document.querySelector('[data-key="energy"]').value=80;
+ document.getElementById('theme').value='blue';
+ document.getElementById('size').value='Normal';
+ notify('Padrões restaurados!');
+}
+
+document.getElementById('theme').addEventListener('change',e=>{
+ const colors={
+  blue:'#087cff',
+  cyan:'#00c8ff',
+  purple:'#925cff'
+ };
+ document.documentElement.style.setProperty('--blue',colors[e.target.value]);
+ notify('Tema alterado!');
+});
+
+load();
 </script>
 </body>
 </html>
